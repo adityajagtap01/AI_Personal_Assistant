@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Personal Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body>
+
+    <h1>Your <span>AI Personal</span> Assistant</h1>
+
+    <div class="div">
+
+        <p>Ask me anything — I'll do my best to help you!</p>
+
+        <form id="askForm" action="/ask" method="post">
+            <input type="text" name="question" placeholder="Type your question here…" required />
+            <button type="submit">Ask</button>
+        </form>
+
+        <p id="ask-loading">Thinking…</p>
+        <p id="answer"></p>
+
+        <hr />
+
+        <h2>Summarize Email</h2>
+
+        <form id="emailForm" action="/summarize" method="post">
+            <textarea name="email_text" placeholder="Paste the email text here…" required></textarea>
+            <button type="submit">Summarize</button>
+        </form>
+
+        <p id="summary-loading">Summarizing…</p>
+        <p id="summary-result"></p>
+
+    </div>
+
+    <script>
+        document.getElementById("askForm").onsubmit = async (e) => {
+            e.preventDefault();
+            const loading = document.getElementById("ask-loading");//gets the loading element by its ID
+            const answer = document.getElementById("answer");
+            loading.style.display = "flex";
+            answer.textContent = "";
+            const res = await fetch("/ask", { method: "POST", body: new FormData(e.target) });
+            const data = await res.json();//collects data from the response and parses it as JSON
+            answer.textContent = data.response;
+            loading.style.display = "none";
+        };
+
+        document.getElementById("emailForm").onsubmit = async (e) => {
+            e.preventDefault();
+            const loading = document.getElementById("summary-loading");
+            const result = document.getElementById("summary-result");
+            loading.style.display = "flex";
+            result.textContent = "";
+            const res = await fetch("/summarize", { method: "POST", body: new FormData(e.target) });
+            const data = await res.json();
+            result.textContent = data.response;
+            loading.style.display = "none";
+        };
+    </script>
+
+</body>
+
+</html>

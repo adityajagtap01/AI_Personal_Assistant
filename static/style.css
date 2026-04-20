@@ -1,0 +1,400 @@
+/* ============================================================
+   AI Personal Assistant — style.css  (v2)
+   Aesthetic: Obsidian glass / soft-neon dark
+   Fonts: Cabinet Grotesk (display) + JetBrains Mono (mono)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Outfit:wght@300;400;600;800&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #08090d;
+    --bg-panel: #0e1017;
+    --bg-card: #13161f;
+    --bg-input: #1a1d29;
+    --bg-hover: #1f2334;
+    --bg-output: #0f1a14;
+
+    --teal: #00dfaa;
+    --teal-dim: rgba(0, 223, 170, .10);
+    --teal-glow: rgba(0, 223, 170, .22);
+    --teal-border: rgba(0, 223, 170, .28);
+
+    --violet: #9b7ef8;
+    --violet-dim: rgba(155, 126, 248, .10);
+    --violet-border: rgba(155, 126, 248, .28);
+
+    --txt: #dde1f0;
+    --txt-soft: #8590a8;
+    --txt-mute: #3d4258;
+
+    --line: rgba(255, 255, 255, .055);
+    --radius: 14px;
+    --radius-lg: 20px;
+    --radius-pill: 99px;
+
+    --ff-head: 'Outfit', sans-serif;
+    --ff-mono: 'JetBrains Mono', monospace;
+    --ease: cubic-bezier(.4, 0, .2, 1);
+}
+
+/* ── RESET & BASE ── */
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: var(--ff-mono);
+    background: var(--bg);
+    color: var(--txt);
+    min-height: 100vh;
+    padding: 0 1.25rem 4rem;
+
+    /* mesh grid */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px);
+    background-size: 36px 36px;
+}
+
+/* ── PAGE SHELL ── */
+h1,
+.div {
+    max-width: 740px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ── H1 ── */
+h1 {
+    font-family: var(--ff-head);
+    font-weight: 800;
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    letter-spacing: -0.04em;
+    line-height: 1.12;
+    color: var(--txt);
+    padding-top: 3.5rem;
+    margin-bottom: 2.25rem;
+    position: relative;
+    animation: up .5s var(--ease) both;
+}
+
+h1 span {
+    background: linear-gradient(90deg, var(--teal), var(--violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── MAIN DIV WRAPPER ── */
+.div {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ── SECTION CARDS ── */
+.div>p:first-child {
+    font-size: .88rem;
+    color: var(--txt-soft);
+    font-weight: 300;
+    margin-bottom: -.5rem;
+    animation: up .4s var(--ease) .05s both;
+}
+
+/* card shared */
+form,
+.output-box {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 1.6rem;
+    animation: up .5s var(--ease) both;
+    transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+
+form:nth-of-type(1) {
+    animation-delay: .08s;
+}
+
+form:nth-of-type(2) {
+    animation-delay: .18s;
+}
+
+form:focus-within {
+    border-color: var(--teal-border);
+    box-shadow: 0 0 0 4px var(--teal-dim), 0 12px 40px rgba(0, 0, 0, .45);
+}
+
+/* ── HR ── */
+hr {
+    border: none;
+    height: 1px;
+    background: var(--line);
+    margin: .5rem 0;
+}
+
+/* ── H2 ── */
+h2 {
+    font-family: var(--ff-head);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--txt);
+    margin-bottom: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+h2::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--violet);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--violet);
+}
+
+/* ── INPUTS ── */
+input[type="text"],
+textarea {
+    width: 100%;
+    background: var(--bg-input);
+    color: var(--txt);
+    font-family: var(--ff-mono);
+    font-size: .875rem;
+    font-weight: 300;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: .8rem 1rem;
+    outline: none;
+    caret-color: var(--teal);
+    line-height: 1.65;
+    transition: border-color .18s var(--ease), box-shadow .18s var(--ease), background .18s;
+    display: block;
+    margin-bottom: .9rem;
+    resize: none;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--txt-mute);
+    font-style: italic;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--teal);
+    background: var(--bg-hover);
+    box-shadow: 0 0 0 3px var(--teal-dim);
+}
+
+/* ── BUTTON ROW ── */
+.btn-row {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+button[type="submit"] {
+    font-family: var(--ff-head);
+    font-size: .82rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: #050709;
+    background: var(--teal);
+    border: none;
+    border-radius: var(--radius-pill);
+    padding: .6rem 1.55rem;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 0 20px var(--teal-glow);
+    transition: background .18s, box-shadow .18s, transform .12s;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+button[type="submit"]::after {
+    content: '›';
+    font-size: 1.15rem;
+    line-height: 1;
+    transition: transform .18s;
+}
+
+button[type="submit"]:hover {
+    background: #00ffcc;
+    box-shadow: 0 0 30px var(--teal-glow);
+}
+
+button[type="submit"]:hover::after {
+    transform: translateX(3px);
+}
+
+button[type="submit"]:active {
+    transform: scale(.97);
+}
+
+/* ── LOADING INDICATORS ── */
+#ask-loading,
+#summary-loading {
+    font-size: .78rem;
+    color: var(--teal);
+    font-family: var(--ff-mono);
+    letter-spacing: .07em;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    margin-top: .6rem;
+    animation: pulse 1.3s ease-in-out infinite;
+}
+
+#ask-loading.visible,
+#summary-loading.visible {
+    display: flex;
+}
+
+#ask-loading::before,
+#summary-loading::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background: var(--teal);
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: blink 1s step-start infinite;
+}
+
+/* ── OUTPUT BOXES ── */
+#answer,
+#summary-result {
+    background: var(--bg-output);
+    border: 1px solid var(--teal-border);
+    border-left: 3px solid var(--teal);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.25rem;
+    margin-top: .85rem;
+    font-size: .88rem;
+    font-weight: 300;
+    color: var(--txt-soft);
+    line-height: 1.85;
+    white-space: pre-wrap;
+    min-height: 64px;
+    transition: opacity .3s var(--ease);
+    position: relative;
+}
+
+/* label chip */
+#answer::before,
+#summary-result::before {
+    content: 'Response';
+    position: absolute;
+    top: -11px;
+    left: 14px;
+    font-family: var(--ff-head);
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: var(--bg-output);
+    padding: 0 8px;
+    border-radius: 4px;
+}
+
+#summary-result::before {
+    content: 'Summary';
+}
+
+#answer:empty,
+#summary-result:empty {
+    display: none;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes up {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .55;
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--txt-mute);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--teal);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 500px) {
+
+    form,
+    .output-box {
+        padding: 1.1rem;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        justify-content: center;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+}
